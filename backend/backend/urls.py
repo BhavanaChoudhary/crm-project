@@ -15,9 +15,22 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path,include
+from django.urls import path, include
+from django.http import JsonResponse
+
+def home(request):
+    return JsonResponse({
+        "message": "CRM Django React API is running!",
+        "endpoints": {
+            "admin": "/admin/",
+            "api": "/api/",
+            "register": "/api/register/",
+            "token": "/api/token/"
+        }
+    })
 
 urlpatterns = [
+    path('', home, name='home'),
     path('admin/', admin.site.urls),
     path('api/', include('api.urls'))
 ]
